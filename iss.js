@@ -19,7 +19,6 @@ const fetchMyIP = function (callback) {
 };
 
 const fetchCoordsByIP = (ip, callback) => {
-  console.log(ip)
   const apiEndpoint = `https://freegeoip.app/json/${ip}`;
 
   request(apiEndpoint, (err, res, data) => {
@@ -40,4 +39,27 @@ const fetchCoordsByIP = (ip, callback) => {
 
 }
 
-module.exports = { fetchMyIP, fetchCoordsByIP };
+const fetchISSFlyOverTimes = ({longitude,latitude}, callback)=> {
+  const apiEndpoint = `https://iss-pass.herokuapp.com/json/?lat=${latitude}&lon=${longitude}`;
+
+
+  request(apiEndpoint , (err,res,data)=> {
+    if (err) {
+      callback(err, null);
+      return;
+    };
+
+    if (res.statusCode !== 200) {
+      callback(Error(`Status Code ${res.statusCode} when fetching ISS pass times: ${body}`), null);
+      return;
+    }
+
+    const passes = JSON.parse(data).response;
+    callback(null, passes);
+  });
+
+
+
+}
+
+module.exports = { fetchMyIP, fetchCoordsByIP , fetchISSFlyOverTimes };

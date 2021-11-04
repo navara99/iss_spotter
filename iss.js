@@ -11,12 +11,12 @@ const nextISSTimesForMyLocation = (callback) => {
         if (err) return callback(err, null);
 
         callback(null, passTimes);
-      })
+      });
     });
   });
-}
+};
 
-const fetchMyIP = function (callback) {
+const fetchMyIP = function(callback) {
   const apiEndpoint = "https://api.ipify.org/?format=json";
 
   request(apiEndpoint, (err, res, data) => {
@@ -51,9 +51,9 @@ const fetchCoordsByIP = (ip, callback) => {
 
     const { latitude, longitude } = JSON.parse(data);
     callback(null, { latitude, longitude });
-  })
+  });
 
-}
+};
 
 const fetchISSFlyOverTimes = ({ longitude, latitude }, callback) => {
   const apiEndpoint = `https://iss-pass.herokuapp.com/json/?lat=${latitude}&lon=${longitude}`;
@@ -63,10 +63,10 @@ const fetchISSFlyOverTimes = ({ longitude, latitude }, callback) => {
     if (err) {
       callback(err, null);
       return;
-    };
+    }
 
     if (res.statusCode !== 200) {
-      callback(Error(`Status Code ${res.statusCode} when fetching ISS pass times: ${body}`), null);
+      callback(Error(`Status Code ${res.statusCode} when fetching ISS pass times: ${data}`), null);
       return;
     }
 
@@ -74,6 +74,6 @@ const fetchISSFlyOverTimes = ({ longitude, latitude }, callback) => {
     callback(null, passTimes);
   });
 
-}
+};
 
 module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes, nextISSTimesForMyLocation };

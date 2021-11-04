@@ -1,6 +1,6 @@
 const nextISSTimesForMyLocation = require("./iss_promised");
 
-const printPassTimes = function (passTimes) {
+const printPassTimes = function(passTimes) {
   for (const pass of passTimes) {
     const datetime = new Date(0);
     datetime.setUTCSeconds(pass.risetime);
@@ -14,5 +14,5 @@ nextISSTimesForMyLocation()
     printPassTimes(passTimes);
   })
   .catch((err) => {
-    console.log("It didn't work: ", err.message)
+    console.log("It didn't work: ", err.message);
   });
